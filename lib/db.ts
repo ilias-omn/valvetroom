@@ -6,13 +6,20 @@ import { hashPassword } from './auth';
 const globalForDb = globalThis as unknown as { _db: Database.Database | undefined };
 
 function initDb(): Database.Database {
-  const dbPath = path.join(process.cwd(), 'data', 'platform.db');
-  const dataDir = path.dirname(dbPath);
-  if (!fs.existsSync(dataDir)) {
-    fs.mkdirSync(dataDir, { recursive: true });
+  // On Netlify/serverless, use /tmp. Otherwise use local data dir.
+  let dbPath: string;
+  try {
+    const localDir = path.join(process.cwd(), 'data');
+    if (!fs.existsSync(localDir)) fs.mkdirSync(localDir, { recursive: true });
+    dbPath = path.join(localDir, 'platform.db');
+    // Test if we can write here
+    fs.accessSync(path.dirname(dbPath), fs.constants.W_OK);
+  } catch {
+    dbPath = '/tmp/platform.db';
   }
 
   const db = new Database(dbPath);
+
   db.pragma('journal_mode = WAL');
   db.pragma('foreign_keys = ON');
 
