@@ -170,44 +170,48 @@ function initDb(): Database.Database {
 
 
   // Seed admin
-  const adminExists = db.prepare("SELECT id FROM users WHERE role = 'admin' LIMIT 1").get();
-  if (!adminExists) {
-    const adminId = crypto.randomUUID();
-    const hash = hashPassword('admin123');
-    db.prepare(
-      'INSERT INTO users (id, username, email, password_hash, role, age_verified) VALUES (?, ?, ?, ?, ?, ?)'
-    ).run(adminId, 'admin', 'admin@platform.com', hash, 'admin', 1);
-  }
+  try {
+    const adminExists = db.prepare("SELECT id FROM users WHERE role = 'admin' LIMIT 1").get();
+    if (!adminExists) {
+      const adminId = crypto.randomUUID();
+      const hash = hashPassword('admin123');
+      db.prepare(
+        'INSERT OR IGNORE INTO users (id, username, email, password_hash, role, age_verified) VALUES (?, ?, ?, ?, ?, ?)'
+      ).run(adminId, 'admin', 'admin@platform.com', hash, 'admin', 1);
+    }
+  } catch {}
 
   // Seed demo performer
-  const perfExists = db.prepare("SELECT id FROM users WHERE role = 'performer' LIMIT 1").get();
-  if (!perfExists) {
-    const perfUserId = crypto.randomUUID();
-    const perfId = crypto.randomUUID();
-    const hash = hashPassword('demo123');
-    db.prepare(
-      'INSERT INTO users (id, username, email, password_hash, role, age_verified) VALUES (?, ?, ?, ?, ?, ?)'
-    ).run(perfUserId, 'performer1', 'performer1@platform.com', hash, 'performer', 1);
-    db.prepare(
-      'INSERT INTO performers (id, user_id, display_name, bio, rate_per_minute, is_online, avatar_color) VALUES (?, ?, ?, ?, ?, ?, ?)'
-    ).run(perfId, perfUserId, 'Sophia Rose', 'Hi! I love chatting and connecting with new people. Let\'s have fun!', 10, 1, '#ec4899');
-    db.prepare('INSERT INTO tokens (id, user_id, balance) VALUES (?, ?, ?)').run(
-      crypto.randomUUID(), perfUserId, 0
-    );
+  try {
+    const perfExists = db.prepare("SELECT id FROM users WHERE role = 'performer' LIMIT 1").get();
+    if (!perfExists) {
+      const perfUserId = crypto.randomUUID();
+      const perfId = crypto.randomUUID();
+      const hash = hashPassword('demo123');
+      db.prepare(
+        'INSERT OR IGNORE INTO users (id, username, email, password_hash, role, age_verified) VALUES (?, ?, ?, ?, ?, ?)'
+      ).run(perfUserId, 'performer1', 'performer1@platform.com', hash, 'performer', 1);
+      db.prepare(
+        'INSERT OR IGNORE INTO performers (id, user_id, display_name, bio, rate_per_minute, is_online, avatar_color) VALUES (?, ?, ?, ?, ?, ?, ?)'
+      ).run(perfId, perfUserId, 'Sophia Rose', 'Hi! I love chatting and connecting with new people. Let\'s have fun!', 10, 1, '#ec4899');
+      db.prepare('INSERT OR IGNORE INTO tokens (id, user_id, balance) VALUES (?, ?, ?)').run(
+        crypto.randomUUID(), perfUserId, 0
+      );
 
-    const perf2UserId = crypto.randomUUID();
-    const perf2Id = crypto.randomUUID();
-    const hash2 = hashPassword('demo123');
-    db.prepare(
-      'INSERT INTO users (id, username, email, password_hash, role, age_verified) VALUES (?, ?, ?, ?, ?, ?)'
-    ).run(perf2UserId, 'performer2', 'performer2@platform.com', hash2, 'performer', 1);
-    db.prepare(
-      'INSERT INTO performers (id, user_id, display_name, bio, rate_per_minute, is_online, avatar_color) VALUES (?, ?, ?, ?, ?, ?, ?)'
-    ).run(perf2Id, perf2UserId, 'Luna Star', 'Adventurous and playful. Let\'s make something memorable together!', 15, 0, '#db2777');
-    db.prepare('INSERT INTO tokens (id, user_id, balance) VALUES (?, ?, ?)').run(
-      crypto.randomUUID(), perf2UserId, 0
-    );
-  }
+      const perf2UserId = crypto.randomUUID();
+      const perf2Id = crypto.randomUUID();
+      const hash2 = hashPassword('demo123');
+      db.prepare(
+        'INSERT OR IGNORE INTO users (id, username, email, password_hash, role, age_verified) VALUES (?, ?, ?, ?, ?, ?)'
+      ).run(perf2UserId, 'performer2', 'performer2@platform.com', hash2, 'performer', 1);
+      db.prepare(
+        'INSERT OR IGNORE INTO performers (id, user_id, display_name, bio, rate_per_minute, is_online, avatar_color) VALUES (?, ?, ?, ?, ?, ?, ?)'
+      ).run(perf2Id, perf2UserId, 'Luna Star', 'Adventurous and playful. Let\'s make something memorable together!', 15, 0, '#db2777');
+      db.prepare('INSERT OR IGNORE INTO tokens (id, user_id, balance) VALUES (?, ?, ?)').run(
+        crypto.randomUUID(), perf2UserId, 0
+      );
+    }
+  } catch {}
 
   return db;
 }
