@@ -229,8 +229,9 @@ export const db: Database.Database = (() => {
   }
   try {
     return globalForDb._db ?? (globalForDb._db = initDb());
-  } catch {
-    return {} as any;
+  } catch (e) {
+    console.error('[DB INIT ERROR]', e);
+    throw e;
   }
 })();
 export default db;
