@@ -5,7 +5,14 @@
       "Bash(find c:UsersosmanOneDriveDesktopwoooow -type f \\\\\\(-name *.tsx -o -name *.css -o -name *.js \\\\\\))",
       "Bash(npm install:*)",
       "Bash(node -e \"require\\(''firebase''\\); require\\(''firebase-admin''\\); console.log\\(''OK''\\)\")",
-      "Bash(node -e \"const p = require\\(''./package.json''\\); console.log\\(''server-only:'', p.dependencies[''server-only''] || ''NOT FOUND''\\); console.log\\(''firebase:'', p.dependencies[''firebase''] || ''NOT FOUND''\\); console.log\\(''firebase-admin:'', p.dependencies[''firebase-admin''] || ''NOT FOUND''\\);\")"
+      "Bash(node -e \"const p = require\\(''./package.json''\\); console.log\\(''server-only:'', p.dependencies[''server-only''] || ''NOT FOUND''\\); console.log\\(''firebase:'', p.dependencies[''firebase''] || ''NOT FOUND''\\); console.log\\(''firebase-admin:'', p.dependencies[''firebase-admin''] || ''NOT FOUND''\\);\")",
+      "Bash(npm run:*)",
+      "Bash(node -e \"const next = require\\(''next/package.json''\\); console.log\\(next.version\\)\")",
+      "Bash(node -e \"const cfg = require\\(''c:/Users/osman/OneDrive/Desktop/woooow/node_modules/next/dist/server/config-shared.js''\\); console.log\\(typeof cfg.defaultConfig?.generateBuildId\\)\")",
+      "Bash(node -e \"const n = require\\(''c:/Users/osman/OneDrive/Desktop/woooow/node_modules/next/dist/compiled/nanoid/index.cjs''\\); console.log\\(typeof n.nanoid\\)\")",
+      "Bash(node -e \"console.log\\(process.env.__NEXT_PRIVATE_RENDER_WORKER_CONFIG ? ''set'' : ''not set'', process.env.__NEXT_PRIVATE_STANDALONE_CONFIG ? ''set'' : ''not set''\\)\")",
+      "Bash(echo \"STANDALONE_CONFIG is set: $#_NEXT_PRIVATE_STANDALONE_CONFIG chars\")",
+      "Bash(unset __NEXT_PRIVATE_STANDALONE_CONFIG)"
     ]
   }
 }

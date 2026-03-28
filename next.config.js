@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
+  generateBuildId: async () => null,
   experimental: {
     serverActions: {
       bodySizeLimit: '500mb',
