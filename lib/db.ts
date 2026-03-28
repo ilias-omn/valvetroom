@@ -216,5 +216,14 @@ function initDb(): Database.Database {
   return db;
 }
 
-export const db: Database.Database = globalForDb._db ?? (globalForDb._db = initDb());
+export const db: Database.Database = (() => {
+  if (process.env.NEXT_PHASE === 'phase-production-build') {
+    return {} as any;
+  }
+  try {
+    return globalForDb._db ?? (globalForDb._db = initDb());
+  } catch {
+    return {} as any;
+  }
+})();
 export default db;
