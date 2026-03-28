@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #140c0a;
+}
+
+body {
+  background-color: var(--background);
+  color: #f9ede0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #1e1210;
+}
+::-webkit-scrollbar-thumb {
+  background: #db2777;
+  border-radius: 3px;
+}
+
+/* ── Screenshot / Screen-recording protection ──────────────────────── */
+
+/* Prevent text & image selection */
+body {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+/* Allow selecting text inside inputs / textareas */
+input, textarea, [contenteditable] {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  user-select: text;
+}
+
+/* Prevent image drag-to-save */
+img {
+  -webkit-user-drag: none;
+}
+
+/* ───────────────────────────────────────────────────────────────────── */
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

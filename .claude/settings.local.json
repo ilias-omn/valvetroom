@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \":*)",
+      "Bash(find c:UsersosmanOneDriveDesktopwoooow -type f \\\\\\(-name *.tsx -o -name *.css -o -name *.js \\\\\\))",
+      "Bash(npm install:*)",
+      "Bash(node -e \"require\\(''firebase''\\); require\\(''firebase-admin''\\); console.log\\(''OK''\\)\")",
+      "Bash(node -e \"const p = require\\(''./package.json''\\); console.log\\(''server-only:'', p.dependencies[''server-only''] || ''NOT FOUND''\\); console.log\\(''firebase:'', p.dependencies[''firebase''] || ''NOT FOUND''\\); console.log\\(''firebase-admin:'', p.dependencies[''firebase-admin''] || ''NOT FOUND''\\);\")"
+    ]
+  }
+}
