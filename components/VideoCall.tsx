@@ -15,6 +15,8 @@ const ICE_SERVERS = {
     { urls: 'stun:stun1.l.google.com:19302' },
     { urls: 'stun:stun2.l.google.com:19302' },
     { urls: 'stun:stun3.l.google.com:19302' },
+    { urls: 'stun:stun.stunprotocol.org:3478' },
+    // Open Relay (free public TURN)
     {
       urls: 'turn:openrelay.metered.ca:80',
       username: 'openrelayproject',
@@ -29,6 +31,23 @@ const ICE_SERVERS = {
       urls: 'turn:openrelay.metered.ca:443?transport=tcp',
       username: 'openrelayproject',
       credential: 'openrelayproject',
+    },
+    // Viagenie free public TURN
+    {
+      urls: 'turn:numb.viagenie.ca',
+      username: 'webrtc@live.com',
+      credential: 'muazkh',
+    },
+    // Backup free TURN
+    {
+      urls: 'turn:relay.backups.cz',
+      username: 'webrtc',
+      credential: 'webrtc',
+    },
+    {
+      urls: 'turn:relay.backups.cz:443?transport=tcp',
+      username: 'webrtc',
+      credential: 'webrtc',
     },
   ],
 };
