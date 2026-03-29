@@ -6,16 +6,23 @@ import { hashPassword } from './auth';
 const globalForDb = globalThis as unknown as { _db: Database.Database | undefined };
 
 function initDb(): Database.Database {
-  // On Netlify/serverless, use /tmp. Otherwise use local data dir.
+  // Use SQLITE_PATH env var if set (Railway persistent volume),
+  // otherwise fall back to local data dir, then /tmp.
   let dbPath: string;
-  try {
-    const localDir = path.join(process.cwd(), 'data');
-    if (!fs.existsSync(localDir)) fs.mkdirSync(localDir, { recursive: true });
-    dbPath = path.join(localDir, 'platform.db');
-    // Test if we can write here
-    fs.accessSync(path.dirname(dbPath), fs.constants.W_OK);
-  } catch {
-    dbPath = '/tmp/platform.db';
+  if (process.env.SQLITE_PATH) {
+    dbPath = process.env.SQLITE_PATH;
+    const dir = path.dirname(dbPath);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+  } else {
+    try {
+      const localDir = path.join(process.cwd(), 'data');
+      if (!fs.existsSync(localDir)) fs.mkdirSync(localDir, { recursive: true });
+      dbPath = path.join(localDir, 'platform.db');
+      // Test if we can write here
+      fs.accessSync(path.dirname(dbPath), fs.constants.W_OK);
+    } catch {
+      dbPath = '/tmp/platform.db';
+    }
   }
 
   const db = new Database(dbPath);
